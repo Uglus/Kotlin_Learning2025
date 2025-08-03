@@ -4,7 +4,41 @@ import junit.framework.TestCase.assertEquals
 class NumbersTest {
 
     @Test
-    fun test_sum_long(){
+    fun test_sum_int_different_signs(){
+        val numbers: Numbers = Numbers.Base(number1 = 200, number2 = -300)
+        val isSumLong = numbers.isSumLong()
+        val expected = false
+        assertEquals(expected, isSumLong)
+        val actualNumber:Int = numbers.sumInt()
+        val expectedNumber:Int = -100
+        assertEquals(expectedNumber,actualNumber)
+    }
+
+    @Test
+    fun test_sum_long_min(){
+        val numbers: Numbers = Numbers.Base(number1 = -2_000_000_000, number2 = -147_483_649)
+        val isSumLong = numbers.isSumLong()
+        val expected = true
+        assertEquals(expected, isSumLong)
+        val actualNumber:Long = numbers.sumLong()
+        val expectedNumber:Long = Int.MIN_VALUE -1L
+        assertEquals(expectedNumber,actualNumber)
+    }
+
+    @Test
+    fun test_sum_int_min(){
+        val numbers: Numbers = Numbers.Base(number1 = -2_000_000_000, number2 = -147_483_648)
+        val isSumLong = numbers.isSumLong()
+        val expected = false
+        assertEquals(expected,isSumLong)
+        val actualNumber : Int = numbers.sumInt()
+        val expectedNumber = Int.MIN_VALUE
+        assertEquals(expectedNumber,actualNumber)
+    }
+
+
+    @Test
+    fun test_sum_long_max(){
         val numbers : Numbers = Numbers.Base(number1 = 2_000_000_000, number2 = 147_483_648)
         val isSumLong = numbers.isSumLong()
         val expected = true
@@ -16,7 +50,7 @@ class NumbersTest {
     }
 
     @Test
-    fun test_sum_int() {
+    fun test_sum_int_max() {
         val numbers : Numbers = Numbers.Base(number1 = 2_000_000_000, number2 = 147_483_647)
         val isSumLong = numbers.isSumLong()
         val expected = false

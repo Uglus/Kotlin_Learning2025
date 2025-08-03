@@ -1,3 +1,5 @@
+import kotlin.math.abs
+
 interface Numbers {
 
     fun sumInt(): Int
@@ -10,13 +12,13 @@ interface Numbers {
     class Base(
         private val number1: Int,
         private val number2: Int
-        ) : Numbers{
+        ) : Numbers {
 
         private var wasSumLongCalled: Boolean = false
         private var wasSumLong: Boolean = false
 
         override fun sumInt(): Int {
-            if(wasSumLongCalled) {
+            if (wasSumLongCalled) {
                 if (wasSumLong)
                     throw IllegalStateException("you shouldn`t use this method: sumInt() ")
                 wasSumLongCalled = false
@@ -26,8 +28,9 @@ interface Numbers {
             throw IllegalAccessException("First you should check the sum by method isSumLong()")
 
         }
-        override fun sumLong() : Long {
-            if(wasSumLongCalled) {
+
+        override fun sumLong(): Long {
+            if (wasSumLongCalled) {
                 if (wasSumLong) {
                     wasSumLongCalled = false
                     wasSumLong = false
@@ -41,9 +44,9 @@ interface Numbers {
 
         override fun difference(): Int = number1 - number2
         override fun divide(): Double {
-            if(number2==0)
+            if (number2 == 0)
                 throw IllegalArgumentException("На 0 ділити не можна")
-            return number1.toDouble()/number2
+            return number1.toDouble() / number2
         }
 
         override fun isSumInt(): Boolean {
@@ -53,13 +56,15 @@ interface Numbers {
 
         override fun isSumLong(): Boolean {
             wasSumLongCalled = true
-            val rest = Int.MAX_VALUE - number1
-            val result = number2 > rest
+            val limit = if(number1>=0 && number2>=0) {
+                Int.MAX_VALUE
+            } else {
+                abs(Int.MIN_VALUE)
+            }
+            val rest = limit - abs(number1)
+            val result = abs(number2) > rest
             wasSumLong = result
             return result
         }
     }
-
-
-
 }
