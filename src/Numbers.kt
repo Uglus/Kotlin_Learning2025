@@ -6,7 +6,6 @@ interface Numbers {
     fun sumLong(): Long
     fun difference(): Int
     fun divide() : Double
-    fun isSumInt() : Boolean
     fun isSumLong() : Boolean
 
     class Base(
@@ -49,14 +48,10 @@ interface Numbers {
             return number1.toDouble() / number2
         }
 
-        override fun isSumInt(): Boolean {
-            val rest = Int.MAX_VALUE - number1
-            return number2 < rest
-        }
 
         override fun isSumLong(): Boolean {
             wasSumLongCalled = true
-            val limit = if(number1>=0 && number2>=0) {
+            val limit = if(number1>0 && number2>0) {
                 Int.MAX_VALUE
             } else {
                 abs(Int.MIN_VALUE)

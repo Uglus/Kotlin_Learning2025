@@ -1,7 +1,7 @@
 import org.junit.Test
 import junit.framework.TestCase.assertEquals
 
-class NumbersTest {
+class NumbersBaseTest {
 
     @Test
     fun test_sum_int_different_signs(){
